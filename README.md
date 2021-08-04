@@ -2,7 +2,7 @@
 
 1, cd safuscan
 
-2, npm install
+2, cd backend && npm install
 
 3, docker build -t safuscan:0.1 .
 
