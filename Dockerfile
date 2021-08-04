@@ -39,6 +39,9 @@ WORKDIR /home/ethsec
 ENV HOME="/home/ethsec"
 ENV PATH="${PATH}:${HOME}/.local/bin"
 
+# Add SAFUSCAN backend
+COPY backend ${HOME}/backend
+
 # Select the latest version of solc as the default:
 RUN solc-select --list | tail -n1 | xargs solc-select
 
@@ -51,12 +54,9 @@ RUN git clone --depth 1 https://github.com/trailofbits/not-so-smart-contracts.gi
     git clone --depth 1 https://github.com/trailofbits/rattle.git && \
     git clone --depth 1 https://github.com/crytic/building-secure-contracts
 
-
-
-
 USER root
 COPY motd /etc/motd
 RUN echo '\ncat /etc/motd\n' >> /etc/bash.bashrc
 USER ethsec
 
-ENTRYPOINT ["/bin/bash"]
+CMD [ "node", "backend/api.js" ]

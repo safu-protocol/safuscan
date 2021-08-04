@@ -1,0 +1,16 @@
+{
+    "name": "safuscan-backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "api.js",
+    "dependencies": {
+        "ansi-to-html": "^0.6.15",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+}

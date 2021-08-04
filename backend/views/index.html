@@ -1,0 +1,276 @@
+<html>
+
+<head>
+    <style>
+        body {
+            background: #353535;
+            color: #E6E6E6;
+            margin: 0px;
+            padding: 0px;
+        }
+        /*Hidden class for adding and removing*/
+        
+        .lds-dual-ring.hidden {
+            display: none;
+        }
+        /*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, .8);
+            z-index: 999;
+            opacity: 1;
+            transition: all 0.5s;
+        }
+        /*Spinner Styles*/
+        
+        .lds-dual-ring {
+            display: inline-block;
+            padding-top: 10%;
+        }
+        
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin: 5% auto;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            border-color: #fff transparent #fff transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+        
+        .bigchar {
+            font-size: 25px;
+        }
+        
+        #contract_address {
+            width: 50%;
+            margin-left: 25px;
+            margin-right: 25px;
+            padding: 10px;
+            border: 2px solid #379AA4;
+            border-radius: 5px;
+        }
+        
+        .push_button {
+            position: relative;
+            width: 220px;
+            height: 40px;
+            text-align: center;
+            color: #FFF;
+            text-decoration: none;
+            line-height: 43px;
+            font-family: 'Oswald', Helvetica;
+            display: inline-block;
+            margin-left: 30px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .push_button:before {
+            background: #f0f0f0;
+            background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#D0D0D0), to(#f0f0f0));
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+            position: absolute;
+            content: "";
+            left: -6px;
+            right: -6px;
+            top: -6px;
+            bottom: -10px;
+            z-index: -1;
+        }
+        
+        .push_button:active {
+            -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
+            top: 5px;
+        }
+        
+        .push_button:active:before {
+            top: -11px;
+            bottom: -5px;
+            content: "";
+        }
+        
+        .red {
+            text-shadow: -1px -1px 0 #A84155;
+            background: #D25068;
+            border: 1px solid #D25068;
+            background-image: -webkit-linear-gradient(top, #F66C7B, #D25068);
+            background-image: -moz-linear-gradient(top, #F66C7B, #D25068);
+            background-image: -ms-linear-gradient(top, #F66C7B, #D25068);
+            background-image: -o-linear-gradient(top, #F66C7B, #D25068);
+            background-image: linear-gradient(to bottom, #F66C7B, #D25068);
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+            -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+        }
+        
+        .red:hover {
+            background: #F66C7B;
+            background-image: -webkit-linear-gradient(top, #D25068, #F66C7B);
+            background-image: -moz-linear-gradient(top, #D25068, #F66C7B);
+            background-image: -ms-linear-gradient(top, #D25068, #F66C7B);
+            background-image: -o-linear-gradient(top, #D25068, #F66C7B);
+            background-image: linear-gradient(top, #D25068, #F66C7B);
+        }
+        
+        .blue {
+            text-shadow: -1px -1px 0 #2C7982;
+            background: #3EACBA;
+            border: 1px solid #379AA4;
+            background-image: -webkit-linear-gradient(top, #48C6D4, #3EACBA);
+            background-image: -moz-linear-gradient(top, #48C6D4, #3EACBA);
+            background-image: -ms-linear-gradient(top, #48C6D4, #3EACBA);
+            background-image: -o-linear-gradient(top, #48C6D4, #3EACBA);
+            background-image: linear-gradient(top, #48C6D4, #3EACBA);
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+            -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+        }
+        
+        .blue:hover {
+            background: #48C6D4;
+            background-image: -webkit-linear-gradient(top, #3EACBA, #48C6D4);
+            background-image: -moz-linear-gradient(top, #3EACBA, #48C6D4);
+            background-image: -ms-linear-gradient(top, #3EACBA, #48C6D4);
+            background-image: -o-linear-gradient(top, #3EACBA, #48C6D4);
+            background-image: linear-gradient(top, #3EACBA, #48C6D4);
+        }
+        
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h2 {
+            text-align: center;
+            padding: 20px;
+            background: #EB8E02;
+        }
+        
+        #loaderResult,
+        #report_infos,
+        #report_honeypot,
+        #report_dev,
+        #report_holders,
+        #report_lp,
+        #report_owner {
+            background-color: #e4e4e43f;
+            width: calc(100% - 60px);
+            float: left;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            position: relative;
+            padding: 15px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <a href="https://www.safu.net" target="_blank"><img src="safu-logo.png" /></a>
+    </h1>
+    <h1>
+        scan.safu.net (Binance Smart Chain SAFU scanner)
+    </h1>
+
+    <h2>static code Analyzer and rug detector for BSC projects</h2>
+
+    <input type="text" id="contract_address" placeholder="Enter any BSC contract address" name="contract_address">
+    <div>
+        <a class="push_button blue" href="#" id="checkBasicInfo">Check contract info</a>
+        <a class="push_button blue" href="#" id="checkFunctionSummary">Function summary</a>
+        <a class="push_button blue" href="#" id="checkFullScan">Full scan</a>
+    </div>
+
+    <div>
+        <div id="report_infos" style="display: none; border: 15px solid rgba(228, 228, 228, 0.72);">
+            <h3 id="report_token_name">SafuYield Protocol (SAFUYIELD)</h3>
+            <div id="infos_labels"><span><br><br>Burned tokens : 51 trillion (51%)</span><span><br><br>Total supply : 100 trillion</span><span><br><br>Holders : 
+        1,690</span></div>
+        </div>
+    </div>
+
+    <div id="loaderResult" style="display: none; border: 15px solid rgba(228, 228, 228, 0.72);"></div>
+    <div id="loader" class="lds-dual-ring hidden overlay"></div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $('#checkBasicInfo').click(function() {
+
+            $('#report_infos').css('display', 'block');
+            $('#loaderResult').css('display', 'block');
+
+            // On click, execute the ajax call.
+            var input_contract_address = $("#contract_address").val();
+            var type = "human-summary";
+            callAjax(input_contract_address, type);
+        });
+
+        $('#checkFunctionSummary').click(function() {
+            // On click, execute the ajax call.
+            var input_contract_address = $("#contract_address").val();
+            var type = "function-summary";
+            callAjax(input_contract_address, type);
+        });
+
+        $('#checkFullScan').click(function() {
+            // On click, execute the ajax call.
+            var input_contract_address = $("#contract_address").val();
+            var type = "full-scan";
+            callAjax(input_contract_address, type);
+        });
+
+        function callAjax(contract_address, type) {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api?address=" + contract_address + "&type=" + type,
+                dataType: 'html',
+                beforeSend: function() { // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                    $('#loader').removeClass('hidden')
+                },
+                success: function(data) {
+                    // On Success, build our rich list up and append it to the #richList div.
+                    if (data.length > 0) {
+                        console.log(data);
+                        $('#loaderResult').html(data);
+                    }
+                },
+                complete: function() { // Set our complete callback, adding the .hidden class and hiding the spinner.
+                    $('#loader').addClass('hidden')
+                },
+            });
+        }
+    </script>
+</body>
+
+</html>
