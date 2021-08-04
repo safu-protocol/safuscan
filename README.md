@@ -4,7 +4,7 @@
 
 2, cd backend && npm install
 
-3, (from root directory where the Dockerfile is located) - >run ----- > **docker build -t safuscan:0.1 . **
+3, (from root directory where the Dockerfile is located) - >run ----- > **docker build -t safuscan:0.1 .**
 
 4, docker run -d -p 8080:8080 safuscan:0.1
 
