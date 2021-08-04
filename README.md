@@ -1,8 +1,8 @@
 # How to start
 
-1, npm install
+1, cd safuscan
 
-2, cd safuscan
+2, npm install
 
 3, docker build -t safuscan:0.1 .
 
